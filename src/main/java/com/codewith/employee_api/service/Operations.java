@@ -18,8 +18,12 @@ public class Operations {
         this.laptopRepository = laptopRepository;
     }
 
-    public Employee createEmployee(Employee employee) {
-        return employeeRepository.save(employee);
+    public boolean addEmployee(Employee emp) {
+        if (employeeRepository.existsById(emp.getEmpId())) {
+            return false;
+        }
+        employeeRepository.save(emp);
+        return true;
     }
 
     public Employee getEmployeeById(int id) {
@@ -30,10 +34,10 @@ public class Operations {
         return employeeRepository.findAll();
     }
 
-    public Employee updateEmployeeName(int id, Employee updatedEmployee) {
+    public Employee updateEmployeeName(int id, String name) {
         Employee existingEmployee = employeeRepository.findById(id).orElse(null);
         if (existingEmployee != null) {
-            existingEmployee.setEmployeeName(updatedEmployee.getEmployeeName());
+            existingEmployee.setEmpName(name);
             return employeeRepository.save(existingEmployee);
         }
         return null;
@@ -47,8 +51,12 @@ public class Operations {
         return false;
     }
 
-    public Laptop addLaptop(Laptop laptop) {
-        return laptopRepository.save(laptop);
+    public boolean addLaptop(Laptop lap) {
+        if (laptopRepository.existsById(lap.getLapId())) {
+            return false;
+        }
+        laptopRepository.save(lap);
+        return true;
     }
 
     public Laptop getLaptopById(int id) {
@@ -59,13 +67,10 @@ public class Operations {
         return laptopRepository.findAll();
     }
 
-    public Laptop updateLaptop(int id, Laptop updatedLaptop) {
+    public Laptop updateLaptopModel(int id, String name) {
         Laptop existingLaptop = laptopRepository.findById(id).orElse(null);
         if (existingLaptop != null) {
-            existingLaptop.setLaptopName(updatedLaptop.getLaptopName());
-            existingLaptop.setLaptopModel(updatedLaptop.getLaptopModel());
-            existingLaptop.setWarranty(updatedLaptop.getWarranty());
-            existingLaptop.setEmployeeId(updatedLaptop.getEmployeeId());
+            existingLaptop.setLapModel(name);
             return laptopRepository.save(existingLaptop);
         }
         return null;

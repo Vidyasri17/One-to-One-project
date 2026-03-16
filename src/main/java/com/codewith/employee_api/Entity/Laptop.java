@@ -1,70 +1,79 @@
 package com.codewith.employee_api.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "laptop")
 public class Laptop {
     @Id
-    private int laptopId;
-    private String laptopName;
-    private String laptopModel;
-    private int warranty;
-    private int employeeId;
+    @Column(name = "lap_id")
+    private int lapId;
+
+    @Column(name = "lap_name", nullable = false)
+    private String lapName;
+
+    @Column(name = "lap_model", nullable = false)
+    private String lapModel;
+
+    @Column(name = "lap_warranty", nullable = false)
+    private String lapWarranty;
+
+    @Column(name = "emp_id")
+    private int empId;
 
     public Laptop() {
     }
 
-    public Laptop(int laptopId, String laptopName, String laptopModel, int warranty, int employeeId) {
-        this.laptopId = laptopId;
-        this.laptopName = laptopName;
-        this.laptopModel = laptopModel;
-        this.warranty = warranty;
-        this.employeeId = employeeId;
+    public Laptop(int lapId, String lapName, String lapModel, String lapWarranty, int empId) {
+        this.lapId = lapId;
+        this.lapName = lapName;
+        this.lapModel = lapModel;
+        this.lapWarranty = lapWarranty;
+        this.empId = empId;
     }
 
-    public int getLaptopId() {
-        return laptopId;
+    public int getLapId() {
+        return lapId;
     }
 
-    public void setLaptopId(int laptopId) {
-        this.laptopId = laptopId;
+    public void setLapId(int lapId) {
+        this.lapId = lapId;
     }
 
-    public String getLaptopName() {
-        return laptopName;
+    public String getLapName() {
+        return lapName;
     }
 
-    public void setLaptopName(String laptopName) {
-        this.laptopName = laptopName;
+    public void setLapName(String lapName) {
+        this.lapName = lapName;
     }
 
-    public String getLaptopModel() {
-        return laptopModel;
+    public String getLapModel() {
+        return lapModel;
     }
 
-    public void setLaptopModel(String laptopModel) {
-        this.laptopModel = laptopModel;
+    public void setLapModel(String lapModel) {
+        this.lapModel = lapModel;
     }
 
-    public int getWarranty() {
-        return warranty;
+    public String getLapWarranty() {
+        return lapWarranty;
     }
 
-    public void setWarranty(int warranty) {
-        this.warranty = warranty;
+    public void setLapWarranty(String lapWarranty) {
+        this.lapWarranty = lapWarranty;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    public int getEmpId() {
+        return empId;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setEmpId(int empId) {
+        this.empId = empId;
     }
 
     public String toString() {
-        return "Laptop [laptopId=" + laptopId + ", laptopName=" + laptopName + ", laptopModel=" + laptopModel
-                + ", warranty=" + warranty + ", employeeId=" + employeeId + "]";
+        return "Laptop [lapId=" + lapId + ", lapName=" + lapName + ", lapModel=" + lapModel
+                + ", lapWarranty=" + lapWarranty + ", empId=" + empId + "]";
     }
 }

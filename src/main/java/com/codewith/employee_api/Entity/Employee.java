@@ -1,41 +1,47 @@
 package com.codewith.employee_api.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "employee")
 public class Employee {
     @Id
-    private int employeeId;
+    @Column(name = "emp_id")
+    private int empId;
 
-    private String employeeName;
+    @Column(name = "emp_name", nullable = false)
+    private String empName;
+
+    @Column(name = "salary")
     private int salary;
-    private String joiningDate;
+
+    @Column(name = "emp_joining_date", columnDefinition = "DATE DEFAULT CURRENT_DATE")
+    private String empJoiningDate;
 
     public Employee() {
     }
 
-    public Employee(int employeeId, String employeeName, int salary, String joiningDate) {
-        this.employeeId = employeeId;
-        this.employeeName = employeeName;
+    public Employee(int empId, String empName, int salary, String empJoiningDate) {
+        this.empId = empId;
+        this.empName = empName;
         this.salary = salary;
-        this.joiningDate = joiningDate;
+        this.empJoiningDate = empJoiningDate;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    public int getEmpId() {
+        return empId;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setEmpId(int empId) {
+        this.empId = empId;
     }
 
-    public String getEmployeeName() {
-        return employeeName;
+    public String getEmpName() {
+        return empName;
     }
 
-    public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
+    public void setEmpName(String empName) {
+        this.empName = empName;
     }
 
     public int getSalary() {
@@ -46,16 +52,16 @@ public class Employee {
         this.salary = salary;
     }
 
-    public String getJoiningDate() {
-        return joiningDate;
+    public String getEmpJoiningDate() {
+        return empJoiningDate;
     }
 
-    public void setJoiningDate(String joiningDate) {
-        this.joiningDate = joiningDate;
+    public void setEmpJoiningDate(String empJoiningDate) {
+        this.empJoiningDate = empJoiningDate;
     }
 
     public String toString() {
-        return "Employee [employeeId=" + employeeId + ", employeeName=" + employeeName + ", salary=" + salary
-                + ", joiningDate=" + joiningDate + "]";
+        return "Employee [empId=" + empId + ", empName=" + empName + ", salary=" + salary
+                + ", empJoiningDate=" + empJoiningDate + "]";
     }
 }

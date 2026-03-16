@@ -1,14 +1,13 @@
 package com.codewith.employee_api.controller;
 
 import com.codewith.employee_api.Entity.Employee;
-import com.codewith.employee_api.Entity.Laptop;
 import com.codewith.employee_api.service.Operations;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/employee")
 public class EmployeeController {
     private final Operations operations;
 
@@ -16,53 +15,28 @@ public class EmployeeController {
         this.operations = operations;
     }
 
-    @PostMapping("/employees/add")
-    public Employee createEmployee(@RequestBody Employee employee) {
-        return operations.createEmployee(employee);
+    @PostMapping("/add")
+    public boolean addEmployee(@RequestBody Employee emp) {
+        return operations.addEmployee(emp);
     }
 
-    @GetMapping("/employees/get/{id}")
-    public Employee getEmployeeById(@PathVariable int id) {
+    @GetMapping("/get/{id}")
+    public Employee getEmployeeeById(@PathVariable int id) {
         return operations.getEmployeeById(id);
     }
 
-    @GetMapping("/employees/getAll")
+    @GetMapping("/getAll")
     public List<Employee> getAllEmployees() {
         return operations.getAllEmployees();
     }
 
-    @PutMapping("/employees/updateName/{id}")
-    public Employee updateEmployeeName(@PathVariable int id, @RequestBody Employee updatedEmployee) {
-        return operations.updateEmployeeName(id, updatedEmployee);
+    @PutMapping("/updateName/{id}")
+    public Employee updateNameById(@PathVariable int id, @RequestBody String name) {
+        return operations.updateEmployeeName(id, name);
     }
 
-    @DeleteMapping("/employees/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public boolean deleteEmployee(@PathVariable int id) {
         return operations.deleteEmployee(id);
-    }
-
-    @PostMapping("/laptops/add")
-    public Laptop addLaptop(@RequestBody Laptop laptop) {
-        return operations.addLaptop(laptop);
-    }
-
-    @GetMapping("/laptops/get/{id}")
-    public Laptop getLaptopById(@PathVariable int id) {
-        return operations.getLaptopById(id);
-    }
-
-    @GetMapping("/laptops/getAll")
-    public List<Laptop> getAllLaptops() {
-        return operations.getAllLaptops();
-    }
-
-    @PutMapping("/laptops/update/{id}")
-    public Laptop updateLaptop(@PathVariable int id, @RequestBody Laptop updatedLaptop) {
-        return operations.updateLaptop(id, updatedLaptop);
-    }
-
-    @DeleteMapping("/laptops/delete/{id}")
-    public boolean deleteLaptop(@PathVariable int id) {
-        return operations.deleteLaptop(id);
     }
 }
