@@ -1,42 +1,70 @@
 package com.codewith.employee_api.controller;
 
-import com.codewith.employee_api.Entity.Laptop;
-import com.codewith.employee_api.service.Operations;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.codewith.employee_api.dtos.LaptopDto;
+import com.codewith.employee_api.service.LaptopService;
+
+@CrossOrigin("*")
 @RestController
-@RequestMapping("/laptop")
 public class LaptopController {
-    private final Operations operations;
 
-    public LaptopController(Operations operations) {
-        this.operations = operations;
+    @Autowired
+    LaptopService laptopService;
+
+    @PostMapping("/laptop")
+    public ResponseEntity<LaptopDto> addLaptop(@RequestBody LaptopDto dto) {
+        LaptopDto saved = laptopService.addLaptop(dto);
+        return new ResponseEntity<>(saved, HttpStatus.CREATED);
     }
 
-    @PostMapping("/add")
-    public boolean addLaptop(@RequestBody Laptop lap) {
-        return operations.addLaptop(lap);
+    @GetMapping("/laptops")
+    public ResponseEntity<List<LaptopDto>> getAllLaptops() {
+        List<LaptopDto> list = laptopService.getAllLaptops();
+        return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/get/{id}")
-    public Laptop getLaptopById(@PathVariable int id) {
-        return operations.getLaptopById(id);
+    @GetMapping("/laptop/{id}")
+    public ResponseEntity<LaptopDto> getLaptopById(@PathVariable String id) {
+        LaptopDto dto = laptopService.getLaptopDtoById(id);
+        return ResponseEntity.ok(dto);
     }
 
-    @GetMapping("/getAll")
-    public List<Laptop> getAllLaptops() {
-        return operations.getAllLaptops();
+    @PutMapping("/laptop/{id}")
+    public ResponseEntity<LaptopDto> updateLaptop(@PathVariable String id,
+                                                  @RequestBody LaptopDto dto) {
+        LaptopDto updated = laptopService.updateLaptop(id, dto);
+        return ResponseEntity.ok(updated);
     }
 
-    @PutMapping("/updateName/{id}")
-    public Laptop updateModelById(@PathVariable int id, @RequestBody String name) {
-        return operations.updateLaptopModel(id, name);
+    @DeleteMapping("/laptop/{id}")
+    public ResponseEntity<String> deleteLaptop(@PathVariable String id) {
+        String msg = laptopService.deleteLaptop(id);
+        return ResponseEntity.ok(msg);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public boolean deleteLaptop(@PathVariable int id) {
-        return operations.deleteLaptop(id);
+    @PutMapping("/laptop/{lap_id}/employee/{emp_id}")
+    public ResponseEntity<LaptopDto> assignLaptopToEmployee(
+            @PathVariable String lap_id, @PathVariable String emp_id) {
+        LaptopDto dto = laptopService.assignLaptopToEmployee(emp_id, lap_id);
+        return new ResponseEntity<>(dto, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/laptop/employee/{emp_id}")
+    public ResponseEntity<LaptopDto> getLaptopByEmpId(@PathVariable String emp_id) {
+        LaptopDto dto = laptopService.getLaptopByEmpId(emp_id);
+        return ResponseEntity.ok(dto);
     }
 }

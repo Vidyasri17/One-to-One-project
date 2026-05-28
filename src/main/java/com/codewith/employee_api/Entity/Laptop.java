@@ -1,13 +1,19 @@
 package com.codewith.employee_api.Entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "laptop")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Laptop {
     @Id
     @Column(name = "lap_id")
-    private int lapId;
+    private String lapId;
 
     @Column(name = "lap_name", nullable = false)
     private String lapName;
@@ -18,62 +24,15 @@ public class Laptop {
     @Column(name = "lap_warranty", nullable = false)
     private String lapWarranty;
 
-    @Column(name = "emp_id")
-    private int empId;
+    @OneToOne
+    @JoinColumn(name = "emp_id")
+    private Employee employee;
 
-    public Laptop() {
-    }
-
-    public Laptop(int lapId, String lapName, String lapModel, String lapWarranty, int empId) {
+    // Manual constructor for the one used in LaptopServiceImpl
+    public Laptop(String lapId, String lapName, String lapModel, String lapWarranty) {
         this.lapId = lapId;
         this.lapName = lapName;
         this.lapModel = lapModel;
         this.lapWarranty = lapWarranty;
-        this.empId = empId;
-    }
-
-    public int getLapId() {
-        return lapId;
-    }
-
-    public void setLapId(int lapId) {
-        this.lapId = lapId;
-    }
-
-    public String getLapName() {
-        return lapName;
-    }
-
-    public void setLapName(String lapName) {
-        this.lapName = lapName;
-    }
-
-    public String getLapModel() {
-        return lapModel;
-    }
-
-    public void setLapModel(String lapModel) {
-        this.lapModel = lapModel;
-    }
-
-    public String getLapWarranty() {
-        return lapWarranty;
-    }
-
-    public void setLapWarranty(String lapWarranty) {
-        this.lapWarranty = lapWarranty;
-    }
-
-    public int getEmpId() {
-        return empId;
-    }
-
-    public void setEmpId(int empId) {
-        this.empId = empId;
-    }
-
-    public String toString() {
-        return "Laptop [lapId=" + lapId + ", lapName=" + lapName + ", lapModel=" + lapModel
-                + ", lapWarranty=" + lapWarranty + ", empId=" + empId + "]";
     }
 }
